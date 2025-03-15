@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            background-color: antiquewhite;
+            display: flex;
+            /* justify-content: space-between; */
+        }
+
+        .box {
+            /* flex-grow: 1;  平分 默认为0 放大比例*/
+            /* flex-shrink: 0;  缩小, 默认是1*/
+        }
+
+        .box:nth-child(1),
+        .box:nth-child(3) {
+            background-color: aqua;
+        }
+
+        .box:nth-child(2) {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+    </div>
+
+</body>
+
+</html>

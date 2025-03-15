@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>单例模式改进</title>
+</head>
+
+<body>
+    <p>请查看console</p>
+    <script>
+        // 单例模式的改进，就是将构造函数与核心代码放在一个闭包里面！---这是自制行函数！
+        const Person = (function () {
+            //    创建构造函数！
+            function Person(name, age, score) {
+                this.name = name
+                this.age = age
+                this.score = score
+            }
+            //    可以在其原型当中添加方法
+            Person.prototype.sayHi = function () { console.log('你好啊！') }
+            //    单例模式的核心代码！
+            //    这里变量因为在一个不会销毁的函数执行空间里面，所以会一直保存的！
+            let instance = null
+
+            return function singleTom(...arg) {
+                if (!instance) instance = new Person(...arg)
+                return instance
+            }
+        })()
+
+        let p1 = Person('hahaha', 23, 79)
+        let p2 = new Person('hahaha', 23, 79)
+        console.log(p1 === p2);
+
+    </script>
+
+</body>
+
+</html>

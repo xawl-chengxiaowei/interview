@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="container" width="150" height="150">
+        您的浏览器不支持canvas, 请升级或者更换浏览器
+    </canvas>
+
+    <script>
+        window.onload = function () {
+            drow()
+        }
+
+        function drow() {
+            const canvas = document.querySelector("#container");
+
+            if (canvas.getContext) {
+                const ctx = canvas.getContext("2d");
+                ctx.beginPath()// 开始路径
+                ctx.moveTo(10, 10)
+                ctx.lineTo(60, 60)
+                ctx.lineTo(10, 110)
+                ctx.closePath()
+                ctx.strokeStyle = "red"
+                ctx.stroke()
+                ctx.fill()
+            }
+        }
+    </script>
+
+</body>
+
+</html>

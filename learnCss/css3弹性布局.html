@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹性布局</title>
+</head>
+<body>
+    <!-- 
+        1.容器和项目
+            +容器:需要添加受弹性布局的父元素
+            +项目：容器当中的每一个子元素。
+        2.主轴和交叉轴
+            +主轴:在弹性布局中通过属性规定水平或者垂直方向为主轴
+            +交叉轴:与主轴垂直的另一方向，称为交叉轴。
+        3.给父元素添加弹性布局  display:flex;显示为块级元素
+          给父元素添加弹性布局  display:inline-flex 显示为行级元素
+     -->
+<!-- 
+    看书146
+    弹性布局的12中属性 6个作用于父类 ，6个作用于子类。
+   一: 改属性规定了主轴的方向，
+    1.row:主轴为水平，方向为从左向右(默认值)
+    2.row-reverse:方向为水平，方向为从右向左
+    3.colume:主轴为垂直，方向为从上到下
+    4.colume-reverse:主轴为垂直，方向从下到上。
+
+    二:flex-wrap:控制换行 规定子元素如何换行。
+    nowrap(默认);不换行，但容器宽度不够的时候，会被挤压
+    wrap:显示换行，换行显示，第一行在最后一行。
+    wrap-reverse:换行显示，第一行在最后一行。
+
+    三:flex-flow:缩写形式。
+    四:justify-content:主轴显示
+    ......
+    flex-grow：项目放大比 默认是0,1表示自适应
+    flex-shrink：项目缩小比 默认为一。空间不足，自动缩小
+    flex-basis：伸缩基数值 
+    flex(作用于子项目):
+    该属性是flex-grow、flex-shrink、flex-basis的简写。grow:放大，缩小。 basis基准值
+    eg：flex:1 1 auto auto   第一个自适应 ，第二个flex-shrink 为默认值
+-->
+<style type="text/css">
+
+    #father{
+        display: flex;
+        /* flex-direction: row-reverse; */
+        /* flex-wrap: wrap; */
+
+        width: 800px;
+        height: 600px;
+        background-color: seashell;
+    }
+    #father>div{
+        width: 200px;
+        height: 100px;
+        background-color: silver;
+    }
+    #first{
+        flex-grow: 1;
+    }
+
+</style>
+
+<article id="father">
+    <div id="first">1</div>
+    <div>2</div>
+    <div>3</div>
+
+</article>
+
+</body>
+</html>

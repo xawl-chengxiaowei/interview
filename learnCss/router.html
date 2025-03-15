@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .view {
+            border: 2px solid rgb(51, 156, 205);
+            border-radius: 6px;
+            height: 100px;
+            width: 200px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>实现一个前端路由</h1>
+
+    <h2>hash 模式</h2>
+    <div id="hash-btn">
+        <button>hash-page1</button>
+        <button>hash-page2</button>
+    </div>
+    <div id="hash-view" class="view"></div>
+
+    <h2>history模式</h2>
+    <div id="history-btn">
+        <button>history-page1</button>
+        <button>history-page2</button>
+    </div>
+    <div id="history-view" class="view"></div>
+
+    <script>
+        function loadPage(page, viewId) {
+            const view = document.querySelector(`#${viewId}`)
+            view.innerHTML = page
+        }
+
+        function initHash() {
+            // 为每个按钮添加事件监听
+            const buttons = Array.from(document.querySelector('#hash-btn').childNodes).filter(node => node.nodeName === 'BUTTON')
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 修改哈希值
+                    location.hash = button.innerText
+                })
+            })
+
+            loadPage(location.hash, 'hash-view')
+            window.onhashchange = function () {
+                // 挂载对应的组件
+                const page = location.hash.substring(1)
+                loadPage(page, 'hash-view')
+            }
+        }
+        // 哈希模式
+        initHash()
+
+        // 历史模式
+        function initHistory() {
+            // 劫持原方法并做发射事件处理
+            const wrappedFn = function (eventName,) {
+                const originFn = window.history[eventName]
+                const event = new Event('popstate')
+                return function (...args) {
+                    const ret = originFn.apply(this, args)
+                    event.state = args[0]
+                    window.dispatchEvent(event)
+                    return ret
+                }
+            }
+
+            window.history.pushState = wrappedFn('pushState')
+            window.history.replaceState = wrappedFn('replaceState')
+
+            // 为每个按钮添加事件监听
+            const buttons = Array.from(document.querySelector('#history-btn').childNodes).filter(node => node.nodeName === 'BUTTON')
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 修改路由状态
+                    window.history.pushState({ state: button.innerText }, `${button.innerText}页面`, `${button.innerText}.html`)
+                })
+            })
+
+            window.addEventListener('popstate', (e) => {
+                console.log("popstate");
+                loadPage(e.state?.state, 'history-view')
+            })
+
+            // 初始化状态
+            window.history.replaceState({ state: 'router' }, '', 'router.html')
+        }
+        initHistory()
+    </script>
+    
+    <script>
+        // 监听hash的变化.
+        function onHashChange() {
+            console.log("onHashChange 发生改变",);
+        }
+        function onDOMContentLoaded() {
+            console.log("DOMContentLoaded 发生变化~")
+        }
+        window.addEventListener("hashchange", onHashChange)
+        // 但是页面加载完不会触发我们的hashchange,这里主动触发一次hashchange事件,处理默认hash
+        // window.addEventListener("DOMContentLoaded", onHashChange)
+
+        function onPopstate() {
+
+        }
+        // 监听history 发生变化~
+        // window.addEventListener("popstate", onPopstate)
+
+
+    </script>
+</body>
+
+</html>

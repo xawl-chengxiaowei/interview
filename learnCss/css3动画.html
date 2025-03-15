@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3动画</title>
+</head>
+<body>
+    <!-- 
+        一:CSS3动画的keyframes和animation
+        1.使用@keyframes 创建关键帧动画
+     -->
+     <style type="text/css">
+     div{
+         width: 100px;
+         height: 100px;
+         background-color: yellow;
+     }
+
+     /* 两种写法 */
+     /* 设置单个属性的属性值 */
+     #div1{
+         animation-name: framel;/*关键帧动画**/
+         animation-duration: 3s;/*关键帧执行时间*/
+         animation-timing-function: ease;/*使用ease效果渐变*/
+         animation-iteration-count: infinite;/*动画播放无数次*/
+     }
+     /* 使用animation 的缩写形式 */
+     #div2{
+         animation:framel  3s  ease infinite ;/*动画与div完全相同-------这种设置比较好!*/
+     }
+
+     @keyframes framel{
+         form{
+             width: 100px;
+         }
+         to{
+             width: 200px;
+         }
+     }
+     </style>
+    <div id="div1">这是一个div1</div>
+    <div id="div2">这是一个div2</div>
+</body>
+</html>
